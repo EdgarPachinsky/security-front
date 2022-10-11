@@ -8,7 +8,7 @@
       </b-form-group>
 
 
-      
+
       <div class="text-center d-flex justify-content-center">
         <div v-if="selected && selected==='id_card'">
         <b-card
