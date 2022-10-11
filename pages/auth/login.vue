@@ -297,6 +297,7 @@ export default {
     }
   },
 
+
   mounted() {
     $nuxt.$emit('setPageTitle', {title: 'وارد شدن'})
 
