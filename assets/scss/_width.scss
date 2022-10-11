@@ -1,0 +1,13 @@
+$unitPercent:'%';
+$unitPixel:'px';
+
+
+@for $i from 0 through 100 {
+
+  .width-percent-#{$i}{
+    width: #{$i}#{$unitPercent};
+  }
+  .width-pixel-#{$i}{
+    width: #{$i}#{$unitPixel};
+  }
+}

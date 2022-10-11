@@ -1,0 +1,288 @@
+@import "variables";
+@import "margins";
+@import "breakpoints";
+@import "width";
+
+@font-face {
+  font-family: "Yekan";
+  src: local("Yekan"),
+  url('../../assets/fonts/Yekan.ttf') format("truetype");
+}
+
+html {
+  font-family: "Yekan" !important;
+}
+
+//$z-depth-1: @include material-shadow($z-depth: 1);
+a{
+  text-decoration: none;
+  color: unset;
+
+  &:hover{
+
+    text-decoration: none;
+    color: unset;
+  }
+}
+
+.custom-link{
+  padding: 0 5px;
+  background: $mainColor;
+  color: $mainWhite;
+  border-radius: $mainRadius;
+}
+
+.page-navbar {
+  @include material-shadow($z-depth: 1, $strength: 1);
+
+  .app-name{
+    color: $mainTextColor;
+    font-weight: bold;
+
+    span{
+      font-style: italic;
+      color: $appCyan;
+    }
+  }
+
+  .nav-logo{
+    width: 20px;
+    position: relative;
+    top: -2px;
+  }
+
+  .nav-actions {
+    display: flex;
+    margin-left: auto;
+
+    .nav-button {
+      margin-right: 0.5rem !important;
+
+      &.user-info{
+        white-space: nowrap;
+      }
+    }
+  }
+
+
+  .nav-time {
+    border-radius: $mainRadius;
+    margin-left: 0.5rem;
+    border: 1px solid #ced4da;
+    padding: 2px 10px;
+    background: white;
+    color: $mainTextColor;
+  }
+}
+
+.page {
+  margin-top: $mainMarginTop;
+  color: $mainTextColor;
+
+  .page-message{
+    margin: 0 auto;
+    width: 50%;
+    display: block;
+    padding: 0 12px;
+    color: $mainWhite;
+    font-size: 15px;
+    border-radius: $mainRadius;
+
+    &.error{
+      background: $alertColor;
+    }
+    &.success{
+      background: $successColor;
+    }
+    &.warning{
+      background: $warningColor;
+    }
+  }
+
+  .wallet-info{
+    @include material-shadow($z-depth: 2, $strength: 1);
+    padding: 10px 15px;
+    border-radius: $mainRadius;
+
+    .wallet-container{
+
+      .wallet-container-info {
+
+        span {
+          padding: 0 10px;
+          background: $appBlue;
+          color: $mainWhite;
+          border-radius: $mainRadius;
+          font-size: 12px;
+        }
+      }
+
+      .wallet-container-action{
+
+      }
+    }
+  }
+
+  .create-nft-token{
+
+
+    .create-nft-token-params{
+
+      @include material-shadow($z-depth: 2, $strength: 1);
+      padding: 10px;
+    }
+  }
+
+  .wallet-balance-info {
+
+    .close-info{
+      display: flex;
+
+      button{
+        margin-left: auto;
+      }
+    }
+
+    .total-ada {
+
+      span{
+        display: inline-block;
+      }
+    }
+
+    .wallet-transaction-detail {
+      @include material-shadow($z-depth: 2, $strength: 1);
+      padding: 5px 10px;
+      border-radius: $mainRadius;
+    }
+  }
+
+  .transactions-container{
+    @include material-shadow($z-depth: 2, $strength: 1);
+    padding: 10px 15px;
+    border-radius: $mainRadius;
+  }
+
+  .account-container{
+    @include material-shadow($z-depth: 2, $strength: 1);
+    padding: 10px 15px;
+    border-radius: $mainRadius;
+  }
+
+  .mint-token-prev-container{
+    position: relative;
+    width: 50%;
+    margin: 0 auto;
+    @include material-shadow($z-depth: 2, $strength: 1);
+    padding: 10px 15px;
+    border-radius: $mainRadius;
+
+
+    &.no-center{
+      margin: 0!important;
+      margin-bottom: 15px !important;
+      width: unset!important;
+    }
+    img{
+      width: 100%;
+      border-radius: $mainRadius;
+      border: 2px solid $mainWhite;
+    }
+    .status{
+      position: absolute;
+      @include material-shadow($z-depth: 2, $strength: 1);
+      padding: 10px 15px;
+      border-radius: $mainRadius;
+      color: #5aff5c;
+      background: $mainWhite;
+      top: -10px;
+      right: -20px;
+      z-index: 20;
+    }
+    .actions{
+      width: 100%;
+
+      button{
+        width: 100%;
+      }
+    }
+  }
+
+  .avatar-image-preview{
+    width: 100px;
+    //border-radius: 50%;
+    overflow: hidden;
+    @include material-shadow($z-depth: 2, $strength: 1);
+    border: 2px solid $mainWhite;
+
+    img{
+      width: 100%;
+    }
+  }
+
+  .main-t-body{
+    word-break: break-all;
+    width: 100%;
+    overflow-x: auto;
+  }
+  .user-list-status{
+    padding: 0 15px 2px 15px;
+    text-align: center;
+    border-radius: 3rem;
+    display: inline-block;
+
+    &.active{
+      background: green;
+      color: white;
+    }
+    &.disabled{
+      color: white;
+      background: red;
+    }
+  }
+
+
+}
+
+.text-center{
+  text-align: center;
+}
+
+.scanner-box{
+  width: 100%;
+}
+.faceDetectionContainer{
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  left: 15px;
+}
+.faceDetectionContainerLeftZero{
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  left: 0;
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width: $b_max-width_600) {
+  .page-navbar {
+    .nav-time{
+
+    }
+  }
+  .nav-actions{
+      margin: 5px auto;
+      margin-bottom: 0;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: $b_max-width_768) {}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (max-width: $b_max-width_992) {}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (max-width: $b_max-width_1200) {}
+

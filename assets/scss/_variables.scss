@@ -1,0 +1,50 @@
+//margins
+$mainMarginTop: 10px;
+$mainMarginTopPlus5: 15px;
+$mainMarginTopPlus10: 20px;
+
+//main colors
+$mainWhite: #ffffff;
+$mainColor: #627eea;
+$mainColorLight: #a8ff73;
+$alertColor:#ff408c;
+$appRed:#dc3545;
+$appBlue: #3559dc;
+$appCyan: #15baa6;
+$successColor: #5aff5c;
+$warningColor: #ffef5a;
+
+//borders
+$mainRadius: 0.25rem;
+
+//texts
+$mainTextColor: #7b7b7b;
+
+//buttons
+$buttonNotHoverColor: #ffffff;
+$buttonHoverColor: $mainColor;
+
+$buttonTextColorNotHover: #ffffff;
+$buttonTextColorHover: #ffffff;
+
+@mixin material-shadow($z-depth: 1, $strength: 1, $color: black) {
+  @if $z-depth == 1 {
+    box-shadow: 0 1px 3px rgba($color, $strength * 0.14), 0 1px 2px rgba($color, $strength * 0.24);
+  }
+  @if $z-depth == 2 {
+    box-shadow: 0 3px 6px rgba($color, $strength * 0.16), 0 3px 6px rgba($color, $strength * 0.23);
+  }
+  @if $z-depth == 3 {
+    box-shadow: 0 10px 20px rgba($color, $strength * 0.19), 0 6px 6px rgba($color, $strength * 0.23);
+  }
+  @if $z-depth == 4 {
+    box-shadow: 0 15px 30px rgba($color, $strength * 0.25), 0 10px 10px rgba($color, $strength * 0.22);
+  }
+  @if $z-depth == 5{
+    box-shadow: 0 20px 40px rgba($color, $strength * 0.30), 0 15px 12px rgba($color, $strength * 0.22);
+  }
+  @if ($z-depth < 1) or ($z-depth > 5) {
+    @warn "$z-depth must be between 1 and 5";
+  }
+}
+
