@@ -17,7 +17,7 @@
         <b-form-select id="cameraList" class="mb-4" @change="startCamera()"></b-form-select>
 
 
-        <div class="col-6 pl-0" id="scannerContainer">
+        <div class="col-sm-12 col-md-6 pl-0" id="scannerContainer">
           <video id="cameraDisplay" v-show="!scanned && !scanning" autoplay class="scanner-box"></video>
         </div>
         <div class="col-3">
@@ -213,7 +213,7 @@ export default {
       if (typeof this.currentStream !== 'undefined' && this.currentStream !== false) {
         // Workaround Android 11 Chrome camera freeze when switching camera
         $('#cameraDisplay')[0].srcObject = null;
-        this.currentStream.getTracks().forEach(track => {
+        this.currentStream && this.currentStream.getTracks().forEach(track => {
           track.stop();
         });
         this.currentStream = false;
@@ -278,8 +278,14 @@ export default {
         data : {
           passportNo: this.passportNo,
         }
-      }).then(() => {
-        this.stopCamera();
+      }).then((data) => {
+        console.log(data)
+        if(data.data){
+          if(data.data.status === 'error'){
+            this.$nuxt.$emit('setMessage', {type: 'error', message: 'کرادنت های اشتباه'})
+          }
+        }
+        // this.stopCamera();
       })
     },
 

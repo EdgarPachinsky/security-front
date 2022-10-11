@@ -7,8 +7,6 @@
         <b-form-radio v-model="selected" :aria-describedby="ariaDescribedby" name="sign_up_value" value="passport">گذرنامه</b-form-radio>
       </b-form-group>
 
-
-
       <div class="text-center d-flex justify-content-center">
         <div v-if="selected && selected==='id_card'">
         <b-card
@@ -48,7 +46,7 @@
         <b-button size="sm" id="btnStartCamera" type="button" @click="initializeVideoStream()">دوربین را راه اندازی کنید</b-button> </p>
 
         <div class="row">
-          <div class="offset-4 col-4">
+          <div class="offset-md-4 col-md-4 offset-sm-0 col-sm-12">
             <div class="mb-5">
               <b-form-select id="cameraList" class="mb-4" @change="startCamera()"></b-form-select>
 
@@ -56,16 +54,11 @@
                 در حال اسکن سند خود لطفا صبر کنید
                 <b-icon icon="arrow-clockwise" animation="spin" font-scale="1"></b-icon>
               </p>
-
-              <div v-if="profileImageContent">
-                <img :src="profileImageContent" width="200px" class="mb-4">
-                <b-button size="sm" type="button" @click="approveProfile()">تایید تصویر</b-button>
-              </div>
             </div>
           </div>
 
           <!--SCANNED DOCUMENT INFO-->
-          <div class="offset-4 col-4" v-if="scanned">
+          <div class="offset-md-4 col-md-4 offset-sm-0 col-sm-12" v-if="scanned">
             <div class="mb-3" >
               <div >
                 <b-card
@@ -141,12 +134,22 @@
           <!--SCANNED DOCUMENT INFO END-->
 
           <!--SCAN ACTION CONTAINER-->
-          <div class="offset-4 col-4" id="scannerContainer">
+          <div class="offset-md-4 col-md-4 offset-sm-0 col-sm-12" id="scannerContainer">
             <video id="cameraDisplay" v-show="!scanned && !scanning" autoplay class="scanner-box"></video>
-            <b-button id="btnCapture" type="button" @click="captureImage()" disabled v-show="!docApproved && currentStream && !scanned && !scanning">
+
+            <div v-if="profileImageContent" class="card p-5">
+              <img :src="profileImageContent" class="mb-4">
+              <b-button size="sm" class="btn-info mb-2 shadow" type="button" :disabled="approvingProfile" @click="approveProfile()">
+                تایید تصویر
+                <b-icon icon="arrow-clockwise" animation="spin" font-scale="1" v-if="approvingProfile"></b-icon>
+              </b-button>
+              <b-button size="sm" class="btn-danger" type="button" :disabled="approvingProfile" @click="deleteScannedProfileImage()">تایید تصویر</b-button>
+            </div>
+
+            <b-button id="btnCapture" type="button" @click="captureImage()" :disabled="approvingProfile" v-show="!docApproved && currentStream && !scanned && !scanning">
               ضبط و اسکن
             </b-button>
-            <b-button id="btnCapture" type="button" @click="captureImage()" v-show="docApproved && canScanFace">
+            <b-button id="btnCapture" type="button" @click="captureImage()" :disabled="approvingProfile" v-show="docApproved && canScanFace && !profileImageContent">
               اسکن چهره
             </b-button>
           </div>
@@ -160,9 +163,9 @@
     <!--MAIN BUTTONS OF NAVIGATION-->
     <b-col cols="12">
       <hr>
-      <b-button v-if="!submitted" type="submit" variant="" @click="activateDocumentScanning()">ارسال</b-button>
-      <b-button v-if="!submitted" type="reset" variant="info" to="/">بازگشت</b-button>
-      <b-button v-if="submitted" type="reset" variant="info" @click="cancelDocumentScanning()">لغو کنید</b-button>
+      <b-button v-if="!submitted" type="submit" variant="" @click="activateDocumentScanning()" :disabled="approvingProfile">ارسال</b-button>
+      <b-button v-if="!submitted" type="reset" variant="info" to="/" :disabled="approvingProfile">بازگشت</b-button>
+      <b-button v-if="submitted" type="reset" variant="info" @click="cancelDocumentScanning()" :disabled="approvingProfile">لغو کنید</b-button>
     </b-col>
     <!--MAIN BUTTONS OF NAVIGATION END-->
   </b-row>
@@ -195,6 +198,7 @@ export default {
       submitted: false,
       canScanFace: false,
       faceCropBox: {},
+      approvingProfile:false,
 
       scannedDoc:{
         NFC:null,
@@ -237,7 +241,12 @@ export default {
       this.getCameraDevices(withFaceDetection);
     },
 
+    deleteScannedProfileImage(){
+      this.profileImageContent = null;
+    },
+
     approveProfile(){
+      this.approvingProfile = true;
 
       let form = new FormData()
       form.append('passportData', JSON.stringify(this.scannedDoc))
@@ -302,7 +311,7 @@ export default {
       if (typeof this.currentStream !== 'undefined' && this.currentStream !== false) {
         // Workaround Android 11 Chrome camera freeze when switching camera
         $('#cameraDisplay')[0].srcObject = null;
-        this.currentStream.getTracks().forEach(track => {
+        this.currentStream && this.currentStream.getTracks().forEach(track => {
           track.stop();
         });
         this.currentStream = false;

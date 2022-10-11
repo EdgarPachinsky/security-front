@@ -32,7 +32,7 @@
 <!--                :src="avatar"-->
 <!--                alt="">-->
             </span>
-            @_{{ $auth.user.username || $auth.user.name  }}
+            @_{{ $auth.user.username && $auth.user.username.length > 7 ? $auth.user.username.substr(1, 7)+ '...' : $auth.user.username || '-'  }}
           </b-button>
 
           <b-button  @click="logOut" type="button" class="custom-button nav-button" variant="" style="margin-right: 0">
