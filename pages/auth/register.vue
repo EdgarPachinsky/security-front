@@ -7,6 +7,7 @@
         <b-form-radio v-model="selected" :aria-describedby="ariaDescribedby" name="sign_up_value" value="passport">گذرنامه</b-form-radio>
       </b-form-group>
 
+
       
       <div class="text-center d-flex justify-content-center">
         <div v-if="selected && selected==='id_card'">
