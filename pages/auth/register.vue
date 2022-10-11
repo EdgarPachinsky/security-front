@@ -261,9 +261,6 @@ export default {
           // if everything is correct log in user
           if (data.saved) {
 
-            console.log(`this.scannedDoc`)
-            console.log(this.scannedDoc)
-
             this.$auth.loginWith('local', {
               data: {
                 passportNo: this.scannedDoc && this.scannedDoc.passportSerial
@@ -347,8 +344,8 @@ export default {
       }
 
       documentctx.drawImage($('#cameraDisplay')[0],
-        this.faceCropBox._box && this.faceCropBox._box._x || 0,
-        this.faceCropBox._box && this.faceCropBox._box._y || 0,
+        this.faceCropBox._box && (this.faceCropBox._box._x + 100) || 0,
+        this.faceCropBox._box && ((this.faceCropBox._box._y - 50) + 100) || 0,
         this.faceCropBox._imageDims && this.faceCropBox._imageDims._width || documentcanvas.width,
         this.faceCropBox._imageDims && this.faceCropBox._imageDims._height || documentcanvas.height,
         0, 0, destinationWidth , destinationHeight);
